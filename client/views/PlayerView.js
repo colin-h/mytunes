@@ -6,7 +6,7 @@ var PlayerView = Backbone.View.extend({
   el: '<audio controls autoplay />',
 
   events: {
-    'ended': function() {
+    ended: function() {
 
       this.model.ended();
     }
@@ -17,6 +17,10 @@ var PlayerView = Backbone.View.extend({
 
   setSong: function(song){
     this.model = song;
+    //if song is falsy because current song was dequeued
+    if (!this.model) {
+      this.$el.pause();
+    }
     this.render();
   },
 

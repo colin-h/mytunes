@@ -14,11 +14,6 @@ var AppView = Backbone.View.extend({
 
     }, this);
 
-    //listens to changes on songQueue collection and re-renders
-    this.model.get("songQueue").on('all', function(){
-      console.log("heard the event");
-      this.queueView.render();
-    }, this);
   },
 
   render: function(){
