@@ -3,6 +3,7 @@ var AppModel = Backbone.Model.extend({
 
   initialize: function(params){
     this.set('currentSong', new SongModel());
+    //creates new songQueue collection
     this.set('songQueue', new SongQueue());
 
     /* Note that 'this' is passed as the third argument. That third argument is
@@ -12,6 +13,11 @@ var AppModel = Backbone.Model.extend({
     end up refering to the window. That's just what happens with all JS events. The handlers end up
     getting called from the window (unless we override it, as we do here). */
 
+    // listens for enqueue event on library model
+    params.library.on('enqueue', function(song){
+      this.get("songQueue").add(song)
+      // console.log(this.get("songQueue"))
+    }, this);
 
     params.library.on('play', function(song){
       this.set('currentSong', song);
